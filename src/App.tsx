@@ -22,6 +22,14 @@ import ProductInventory from './components/Products/ProductInventory'
 // Orders
 import OrderList from './components/Orders/OrderList'
 
+// Vouchers
+import VoucherList from './components/Vouchers/VoucherList'
+import VoucherForm from './components/Vouchers/VoucherForm'
+
+// Statistics
+import Statistics from './components/Statistics/Statistics'
+import RevenueByDay from './components/RevenueByDay'
+
 function App() {
   return (
     <BrowserRouter>
@@ -65,8 +73,9 @@ function App() {
               <Route path="/shipping/zones" element={<div style={{ padding: '20px' }}><h2>Khu vực vận chuyển</h2><p>Đang phát triển...</p></div>} />
 
               {/* Vouchers */}
-              <Route path="/vouchers/list" element={<div style={{ padding: '20px' }}><h2>Danh sách voucher</h2><p>Đang phát triển...</p></div>} />
-              <Route path="/vouchers/add" element={<div style={{ padding: '20px' }}><h2>Tạo voucher</h2><p>Đang phát triển...</p></div>} />
+              <Route path="/vouchers/list" element={<VoucherList />} />
+              <Route path="/vouchers/add" element={<VoucherForm />} />
+              <Route path="/vouchers/edit/:id" element={<VoucherForm />} />
 
               {/* Inventory */}
               <Route path="/inventory/import" element={<div style={{ padding: '20px' }}><h2>Nhập hàng</h2><p>Đang phát triển...</p></div>} />
@@ -82,7 +91,8 @@ function App() {
               <Route path="/messages/sent" element={<div style={{ padding: '20px' }}><h2>Tin đã gửi</h2><p>Đang phát triển...</p></div>} />
 
               {/* Statistics */}
-              <Route path="/statistics/revenue" element={<div style={{ padding: '20px' }}><h2>Thống kê doanh thu</h2><p>Đang phát triển...</p></div>} />
+              <Route path="/statistics" element={<Statistics />} />
+              <Route path="/statistics/revenue" element={<RevenueByDay />} />
               <Route path="/statistics/products" element={<div style={{ padding: '20px' }}><h2>Thống kê sản phẩm</h2><p>Đang phát triển...</p></div>} />
               <Route path="/statistics/customers" element={<div style={{ padding: '20px' }}><h2>Thống kê khách hàng</h2><p>Đang phát triển...</p></div>} />
 

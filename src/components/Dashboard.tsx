@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { dashboardApi, ordersApi } from '../services';
+import { dashboardApi, ordersService } from '../services';
 import type { DashboardStats, TopProduct } from '../services/dashboard.service';
 import type { Order } from '../services/orders.service';
 import '../styles/Dashboard.css';
@@ -28,15 +28,15 @@ export default function Dashboard() {
       setLoading(true);
       setError(null);
 
-      const [statsData, productsData, ordersData] = await Promise.all([
+      const [statsData, productsData, ordersResponse] = await Promise.all([
         dashboardApi.getDashboardStats(),
         dashboardApi.getTopProducts(5),
-        ordersApi.getRecentOrders(5),
+        ordersService.getAllOrders({ page: 1, limit: 5 }),
       ]);
 
       setStats(statsData);
       setTopProducts(productsData);
-      setRecentOrders(ordersData);
+      setRecentOrders(ordersResponse.data);
     } catch (err) {
       console.error('Error loading dashboard data:', err);
       setError('Không thể tải dữ liệu từ backend API');
@@ -94,7 +94,7 @@ export default function Dashboard() {
     return (
       <div className="dashboard">
         <div className="error-container">
-          <p className="error-message">❌ {error}</p>
+          <p className="error-message">{error}</p>
           <button onClick={loadDashboardData} className="retry-btn">
             Thử lại
           </button>
@@ -109,28 +109,28 @@ export default function Dashboard() {
     {
       label: 'Tổng doanh thu',
       value: formatCurrency(stats?.total_revenue || 0),
-      icon: '💰',
+      icon: '',
       color: '#10b981',
       growth: stats?.revenue_growth,
     },
     {
       label: 'Đơn hàng',
       value: stats?.total_orders?.toString() || '0',
-      icon: '📦',
+      icon: '',
       color: '#3b82f6',
       growth: stats?.orders_growth,
     },
     {
       label: 'Khách hàng',
       value: stats?.total_customers?.toString() || '0',
-      icon: '👥',
+      icon: '',
       color: '#f59e0b',
       growth: stats?.customers_growth,
     },
     {
       label: 'Sản phẩm',
       value: stats?.total_products?.toString() || '0',
-      icon: '🏋️',
+      icon: '',
       color: '#8b5cf6',
     },
   ];
@@ -194,7 +194,7 @@ export default function Dashboard() {
                       <td><strong>#{String(order.id).slice(0, 8)}</strong></td>
                       <td>{order.customer_name}</td>
                       <td>{order.items?.length || 0} sản phẩm</td>
-                      <td className="amount">{formatCurrency(order.total_amount)}</td>
+                      <td className="amount">{formatCurrency(parseFloat(order.total))}</td>
                       <td>
                         <span className={`status ${getStatusClass(order.status)}`}>
                           {getStatusText(order.status)}

@@ -1,1 +1,553 @@
-@import './Categories.css';
+/* Order List Styles */
+.order-list {
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.order-list .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.order-list .page-header h2 {
+  font-size: 28px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.order-list .page-header p {
+  margin: 5px 0 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Filters */
+.order-list .filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.order-list .search-input {
+  flex: 1;
+  min-width: 300px;
+  padding: 12px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.order-list .search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.order-list .status-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.order-list .filter-btn {
+  padding: 10px 20px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.order-list .filter-btn:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+}
+
+.order-list .filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+/* Table */
+.order-list .table-container {
+  overflow-x: auto;
+}
+
+.order-list table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.order-list table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.order-list table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.order-list table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.order-list table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.order-list table tbody tr:hover {
+  background: #f8f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Order Number */
+.order-list .order-number {
+  color: #667eea;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* Customer Info */
+.order-list .customer-info strong {
+  display: block;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.order-list .customer-contact small {
+  color: #666;
+  font-size: 12px;
+}
+
+/* Item Count */
+.order-list .item-count {
+  background: #f0f0f0;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Total Amount */
+.order-list .total-amount strong {
+  color: #667eea;
+  font-size: 16px;
+}
+
+/* Status Badges */
+.order-list .status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.order-list .status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.order-list .status-confirmed {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.order-list .status-processing {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.order-list .status-shipped {
+  background: #e7f3ff;
+  color: #1976d2;
+}
+
+.order-list .status-delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
+.order-list .status-cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Payment Badges */
+.order-list .payment-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.order-list .payment-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.order-list .payment-paid {
+  background: #d4edda;
+  color: #155724;
+}
+
+.order-list .payment-failed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.order-list .payment-refunded {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+/* Action Buttons */
+.order-list .action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.order-list .btn-action {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #f0f0f0;
+}
+
+.order-list .btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.order-list .btn-view:hover {
+  background: #667eea;
+}
+
+.order-list .btn-edit:hover {
+  background: #ffc107;
+}
+
+.order-list .btn-shipping:hover {
+  background: #28a745;
+}
+
+.order-list .btn-cancel:hover {
+  background: #dc3545;
+}
+
+/* Modals */
+.order-list .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.order-list .modal-content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+.order-list .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 2px solid #f0f0f0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.order-list .modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.order-list .close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.order-list .close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.order-list .modal-body {
+  padding: 25px;
+}
+
+.order-list .detail-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f8f9ff;
+  border-radius: 12px;
+}
+
+.order-list .detail-section h4 {
+  margin: 0 0 15px 0;
+  color: #667eea;
+  font-size: 16px;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 8px;
+}
+
+.order-list .detail-section p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.order-list .detail-section strong {
+  color: #333;
+  font-weight: 600;
+  min-width: 150px;
+  display: inline-block;
+}
+
+/* Items Table */
+.order-list .items-table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: collapse;
+}
+
+.order-list .items-table th {
+  background: #667eea;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-size: 13px;
+}
+
+.order-list .items-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.order-list .items-table td small {
+  color: #666;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Total Section */
+.order-list .total-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.order-list .total-section p {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.order-list .total-section strong {
+  color: white;
+}
+
+.order-list .total-section .discount {
+  color: #ffc107;
+}
+
+.order-list .total-section .total {
+  font-size: 18px;
+  padding-top: 12px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  margin-top: 12px;
+}
+
+/* Form Groups */
+.order-list .form-group {
+  margin-bottom: 20px;
+}
+
+.order-list .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.order-list .form-control {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.order-list .form-control:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Modal Actions */
+.order-list .modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.order-list .btn-cancel,
+.order-list .btn-primary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.order-list .btn-cancel {
+  background: #e0e0e0;
+  color: #666;
+}
+
+.order-list .btn-cancel:hover {
+  background: #d0d0d0;
+}
+
+.order-list .btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.order-list .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Empty State */
+.order-list .empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+/* Loading */
+.order-list .loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.order-list .loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .order-list .filters {
+    flex-direction: column;
+  }
+
+  .order-list .search-input {
+    min-width: 100%;
+  }
+
+  .order-list .status-filters {
+    width: 100%;
+  }
+
+  .order-list .filter-btn {
+    flex: 1;
+  }
+
+  .order-list .modal-content {
+    width: 95%;
+  }
+}

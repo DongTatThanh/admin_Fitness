@@ -57,14 +57,14 @@ export default function Products() {
       <div className="products-header">
         <h2>Quản Lý Sản Phẩm</h2>
         <button className="add-btn" onClick={() => setShowModal(true)}>
-          ➕ Thêm sản phẩm mới
+          Thêm sản phẩm mới
         </button>
       </div>
 
       <div className="products-toolbar">
         <div className="search-box">
           <input type="text" placeholder="Tìm kiếm sản phẩm..." />
-          <span className="search-icon">🔍</span>
+          <span className="search-icon"></span>
         </div>
         <div className="filters">
           <select>
@@ -117,8 +117,8 @@ export default function Products() {
                 </td>
                 <td>
                   <div className="action-btns">
-                    <button className="edit-btn" title="Sửa">✏️</button>
-                    <button className="delete-btn" title="Xóa">🗑️</button>
+                    <button className="edit-btn" title="Sửa">Edit</button>
+                    <button className="delete-btn" title="Xóa">Delete</button>
                   </div>
                 </td>
               </tr>

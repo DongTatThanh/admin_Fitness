@@ -11,7 +11,7 @@ export default function Header() {
         <div className="header-right">
           <div className="search-box">
             <input type="text" placeholder="Tìm kiếm..." />
-            <span className="search-icon">🔍</span>
+            <span className="search-icon"></span>
           </div>
           
           <div className="header-actions">

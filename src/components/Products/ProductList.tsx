@@ -394,7 +394,7 @@ export default function ProductList() {
                               }}
                             />
                           ) : null}
-                          <span className={`no-logo ${product.featured_image ? 'hidden' : ''}`}>📷</span>
+                          <span className={`no-logo ${product.featured_image ? 'hidden' : ''}`}></span>
                         </td>
                         <td>
                           <strong>{product.name}</strong>
@@ -490,7 +490,7 @@ export default function ProductList() {
             {modalMode === 'view' && (
               <>
                 <div className="modal-header">
-                  <h2>📦 Chi tiết sản phẩm</h2>
+                  <h2>Chi tiết sản phẩm</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -583,7 +583,7 @@ export default function ProductList() {
             {modalMode === 'edit' && (
               <>
                 <div className="modal-header">
-                  <h2>✏️ Chỉnh sửa sản phẩm</h2>
+                  <h2>Chỉnh sửa sản phẩm</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -759,7 +759,7 @@ export default function ProductList() {
             {modalMode === 'delete' && (
               <>
                 <div className="modal-header">
-                  <h2>⚠️ Xác nhận xóa</h2>
+                  <h2>Xác nhận xóa</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -770,7 +770,7 @@ export default function ProductList() {
                 </div>
                 <div className="modal-footer">
                   <button className="btn-cancel" onClick={() => setShowModal(false)}>Hủy</button>
-                  <button className="btn-delete-confirm" onClick={confirmDelete}>🗑️ Xóa</button>
+                  <button className="btn-delete-confirm" onClick={confirmDelete}>Xóa</button>
                 </div>
               </>
             )}

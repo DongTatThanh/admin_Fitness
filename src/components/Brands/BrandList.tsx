@@ -214,7 +214,7 @@ export default function BrandList() {
       {/* Filters */}
       <div className="filters-section">
         <div className="search-box">
-          <span className="search-icon">🔍</span>
+          <span className="search-icon"></span>
           <input
             type="text"
             placeholder="Tìm kiếm nhãn hàng..."
@@ -294,7 +294,7 @@ export default function BrandList() {
                               className="brand-logo"
                             />
                           ) : (
-                            <span className="no-logo">📷</span>
+                            <span className="no-logo"></span>
                           )}
                         </td>
                         <td><strong>{brand.name}</strong></td>
@@ -307,7 +307,7 @@ export default function BrandList() {
                         </td>
                         <td>
                           <span className={`status-badge ${brand.is_featured ? 'active' : 'inactive'}`}>
-                            {brand.is_featured ? '⭐ Nổi bật' : '-'}
+                            {brand.is_featured ? 'Nổi bật' : '-'}
                           </span>
                         </td>
                         <td className="date-cell">{formatDate(brand.created_at)}</td>
@@ -390,7 +390,7 @@ export default function BrandList() {
             {modalMode === 'view' && (
               <>
                 <div className="modal-header">
-                  <h2>🏷️ Chi tiết nhãn hàng</h2>
+                  <h2>Chi tiết nhãn hàng</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -429,7 +429,7 @@ export default function BrandList() {
                   <div className="info-row">
                     <span className="info-label">Nổi bật:</span>
                     <span className={`status-badge ${selectedBrand.is_featured ? 'active' : 'inactive'}`}>
-                      {selectedBrand.is_featured ? '⭐ Có' : 'Không'}
+                      {selectedBrand.is_featured ? 'Có' : 'Không'}
                     </span>
                   </div>
                   <div className="info-row">
@@ -448,7 +448,7 @@ export default function BrandList() {
             {modalMode === 'edit' && (
               <>
                 <div className="modal-header">
-                  <h2>✏️ Chỉnh sửa nhãn hàng</h2>
+                  <h2>Chỉnh sửa nhãn hàng</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -540,7 +540,7 @@ export default function BrandList() {
             {modalMode === 'delete' && (
               <>
                 <div className="modal-header">
-                  <h2>⚠️ Xác nhận xóa</h2>
+                  <h2>Xác nhận xóa</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -554,7 +554,7 @@ export default function BrandList() {
                     Hủy
                   </button>
                   <button className="btn-delete-confirm" onClick={confirmDelete}>
-                    🗑️ Xóa
+                    Xóa
                   </button>
                 </div>
               </>

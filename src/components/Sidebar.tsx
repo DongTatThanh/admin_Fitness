@@ -19,118 +19,119 @@ export default function Sidebar() {
     { 
       id: 'dashboard', 
       label: 'Dashboard', 
-      icon: '📊',
+      icon: '',
       path: '/dashboard'
     },
     { 
       id: 'users', 
       label: 'Quản lý người dùng', 
-      icon: '👤',
+      icon: '',
       subItems: [
-        { id: 'users-list', label: 'Danh sách người dùng', icon: '📋', path: '/users/list' },
-        { id: 'users-create', label: 'Thêm người dùng', icon: '🔐', path: '/users/create' },
+        { id: 'users-list', label: 'Danh sách người dùng', icon: '', path: '/users/list' },
+        { id: 'users-create', label: 'Thêm người dùng', icon: '', path: '/users/create' },
       ]
     },
     { 
       id: 'categories', 
       label: 'Quản lý danh mục', 
-      icon: '📂',
+      icon: '',
       subItems: [
-        { id: 'categories-list', label: 'Danh sách danh mục', icon: '📋', path: '/categories/list' },
-        { id: 'categories-add', label: 'Thêm danh mục', icon: '➕', path: '/categories/add' },
+        { id: 'categories-list', label: 'Danh sách danh mục', icon: '', path: '/categories/list' },
+        { id: 'categories-add', label: 'Thêm danh mục', icon: '', path: '/categories/add' },
       ]
     },
     { 
       id: 'brands', 
       label: 'Quản lý nhãn hàng', 
-      icon: '🏷️',
+      icon: '',
       subItems: [
-        { id: 'brands-list', label: 'Danh sách nhãn hàng', icon: '📋', path: '/brands/list' },
-        { id: 'brands-add', label: 'Thêm nhãn hàng', icon: '➕', path: '/brands/add' },
+        { id: 'brands-list', label: 'Danh sách nhãn hàng', icon: '', path: '/brands/list' },
+        { id: 'brands-add', label: 'Thêm nhãn hàng', icon: '', path: '/brands/add' },
       ]
     },
     { 
       id: 'products', 
       label: 'Quản lý sản phẩm', 
-      icon: '🏋️',
+      icon: '',
       subItems: [
-        { id: 'products-list', label: 'Danh sách sản phẩm', icon: '📋', path: '/products/list' },
-        { id: 'products-add', label: 'Thêm sản phẩm', icon: '➕', path: '/products/add' },
-        { id: 'products-inventory', label: 'Quản lý kho', icon: '📦', path: '/products/inventory' },
+        { id: 'products-list', label: 'Danh sách sản phẩm', icon: '', path: '/products/list' },
+        { id: 'products-add', label: 'Thêm sản phẩm', icon: '', path: '/products/add' },
+        { id: 'products-inventory', label: 'quản lý biến thê sản phẩm', icon: '', path: '/products/inventory' },
       ]
     },
     { 
       id: 'topics', 
       label: 'Quản lý chủ đề', 
-      icon: '💡',
+      icon: '',
       subItems: [
-        { id: 'topics-list', label: 'Danh sách chủ đề', icon: '📋', path: '/topics/list' },
-        { id: 'topics-add', label: 'Thêm chủ đề', icon: '➕', path: '/topics/add' },
+        { id: 'topics-list', label: 'Danh sách chủ đề', icon: '', path: '/topics/list' },
+        { id: 'topics-add', label: 'Thêm chủ đề', icon: '', path: '/topics/add' },
       ]
     },
     { 
       id: 'posts', 
       label: 'Quản lý bài đăng', 
-      icon: '📝',
+      icon: '',
       subItems: [
-        { id: 'posts-list', label: 'Danh sách bài đăng', icon: '📋', path: '/posts/list' },
-        { id: 'posts-add', label: 'Thêm bài đăng', icon: '➕', path: '/posts/add' },
+        { id: 'posts-list', label: 'Danh sách bài đăng', icon: '', path: '/posts/list' },
+        { id: 'posts-add', label: 'Thêm bài đăng', icon: '', path: '/posts/add' },
       ]
     },
     { 
       id: 'shipping', 
       label: 'Quản lý vận chuyển', 
-      icon: '🚚',
+      icon: '',
       subItems: [
-        { id: 'shipping-methods', label: 'Phương thức ship', icon: '📋', path: '/shipping/methods' },
-        { id: 'shipping-zones', label: 'Khu vực ship', icon: '🗺️', path: '/shipping/zones' },
+        { id: 'shipping-methods', label: 'Phương thức ship', icon: '', path: '/shipping/methods' },
+        { id: 'shipping-zones', label: 'Khu vực ship', icon: '', path: '/shipping/zones' },
       ]
     },
     { 
       id: 'vouchers', 
       label: 'Quản lý voucher', 
-      icon: '🎟️',
+      icon: '',
       subItems: [
-        { id: 'vouchers-list', label: 'Danh sách voucher', icon: '📋', path: '/vouchers/list' },
-        { id: 'vouchers-add', label: 'Tạo voucher', icon: '➕', path: '/vouchers/add' },
+        { id: 'vouchers-list', label: 'Danh sách voucher', icon: '', path: '/vouchers/list' },
+        { id: 'vouchers-add', label: 'Tạo voucher', icon: '', path: '/vouchers/add' },
       ]
     },
     { 
       id: 'inventory', 
       label: 'Quản lý nhập hàng', 
-      icon: '📥',
+      icon: '',
       subItems: [
-        { id: 'inventory-import', label: 'Nhập hàng', icon: '📦', path: '/inventory/import' },
-        { id: 'inventory-history', label: 'Lịch sử nhập', icon: '📋', path: '/inventory/history' },
+        { id: 'inventory-import', label: 'Nhập hàng', icon: '', path: '/inventory/import' },
+        { id: 'inventory-history', label: 'Lịch sử nhập', icon: '', path: '/inventory/history' },
       ]
     },
     { 
       id: 'orders', 
       label: 'Quản lý đơn hàng', 
-      icon: '🛒',
+      icon: '',
       subItems: [
-        { id: 'orders-list', label: 'Danh sách đơn hàng', icon: '📋', path: '/orders/list' },
-        { id: 'orders-pending', label: 'Đơn chờ xử lý', icon: '⏳', path: '/orders/pending' },
-        { id: 'orders-completed', label: 'Đơn hoàn thành', icon: '✅', path: '/orders/completed' },
+        { id: 'orders-list', label: 'Danh sách đơn hàng', icon: '', path: '/orders/list' },
+        { id: 'orders-pending', label: 'Đơn chờ xử lý', icon: '', path: '/orders/pending' },
+        { id: 'orders-completed', label: 'Đơn hoàn thành', icon: '', path: '/orders/completed' },
       ]
     },
     { 
       id: 'messages', 
       label: 'Quản lý tin nhắn', 
-      icon: '💬',
+      icon: '',
       subItems: [
-        { id: 'messages-inbox', label: 'Hộp thư đến', icon: '📨', path: '/messages/inbox' },
-        { id: 'messages-sent', label: 'Tin đã gửi', icon: '📤', path: '/messages/sent' },
+        { id: 'messages-inbox', label: 'Hộp thư đến', icon: '', path: '/messages/inbox' },
+        { id: 'messages-sent', label: 'Tin đã gửi', icon: '', path: '/messages/sent' },
       ]
     },
     { 
       id: 'statistics', 
       label: 'Thống kê', 
-      icon: '📈',
+      icon: '',
       subItems: [
-        { id: 'stats-revenue', label: 'Doanh thu', icon: '💰', path: '/statistics/revenue' },
-        { id: 'stats-products', label: 'Sản phẩm', icon: '📊', path: '/statistics/products' },
-        { id: 'stats-customers', label: 'Khách hàng', icon: '👥', path: '/statistics/customers' },
+        { id: 'stats-overview', label: 'Tổng quan', icon: '', path: '/statistics' },
+        { id: 'stats-revenue', label: 'Doanh thu', icon: '', path: '/statistics/revenue' },
+        { id: 'stats-products', label: 'Sản phẩm', icon: '', path: '/statistics/products' },
+        { id: 'stats-customers', label: 'Khách hàng', icon: '', path: '/statistics/customers' },
       ]
     },
   ];

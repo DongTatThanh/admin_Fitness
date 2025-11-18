@@ -193,7 +193,7 @@ export default function UserManagement() {
       {/* Filters */}
       <div className="filters-section">
         <div className="search-box">
-          <span className="search-icon">🔍</span>
+          <span className="search-icon"></span>
           <input
             type="text"
             placeholder="Tìm kiếm theo tên, email, số điện thoại..."
@@ -346,7 +346,7 @@ export default function UserManagement() {
             {modalMode === 'view' && (
               <>
                 <div className="modal-header">
-                  <h2>👤 Chi tiết người dùng</h2>
+                  <h2>Chi tiết người dùng</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -398,7 +398,7 @@ export default function UserManagement() {
             {modalMode === 'edit' && (
               <>
                 <div className="modal-header">
-                  <h2>✏️ Chỉnh sửa người dùng</h2>
+                  <h2>Chỉnh sửa người dùng</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -469,7 +469,7 @@ export default function UserManagement() {
             {modalMode === 'delete' && (
               <>
                 <div className="modal-header">
-                  <h2>⚠️ Xác nhận xóa</h2>
+                  <h2>Xác nhận xóa</h2>
                   <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
                 </div>
                 <div className="modal-body">
@@ -483,7 +483,7 @@ export default function UserManagement() {
                     Hủy
                   </button>
                   <button className="btn-delete-confirm" onClick={confirmDelete}>
-                    🗑️ Xóa
+                    Xóa
                   </button>
                 </div>
               </>
