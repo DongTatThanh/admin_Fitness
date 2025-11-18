@@ -21,7 +21,10 @@ export default function Header() {
             </button>
             
             <div className="user-profile">
-              <img src="https://via.placeholder.com/40" alt="Admin" />
+              <img
+                src="https://ui-avatars.com/api/?name=Admin&background=6C63FF&color=fff&size=80"
+                alt="Admin avatar"
+              />
               <span>Admin</span>
             </div>
           </div>

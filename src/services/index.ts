@@ -2,6 +2,9 @@
 export * from './products.service';
 export * from './orders.service';
 export * from './dashboard.service';
+export * from './upload.service';
+    
+
 
 // Export API client and utilities
 export { apiClient, getImageUrl, API_BASE_URL, OrderStatus } from '../lib/api_client';

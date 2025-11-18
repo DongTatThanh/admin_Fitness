@@ -21,12 +21,13 @@ class ApiClient {
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     
+    const isFormData = options.body instanceof FormData;
     const config: RequestInit = {
+      ...options,
       headers: {
-        'Content-Type': 'application/json',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
         ...options.headers,
       },
-      ...options,
     };
 
     console.log('API Request:', {
@@ -73,10 +74,7 @@ class ApiClient {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: bodyString,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers,
-      },
+      headers,
     });
   }
 
@@ -105,6 +103,15 @@ class ApiClient {
     });
   }
 
+  // POST FormData request (for uploads)
+  async postForm<T>(endpoint: string, formData: FormData, headers?: Record<string, string>): Promise<T> {
+    return this.request<T>(endpoint, {
+      method: 'POST',
+      body: formData,
+      headers,
+    });
+  }
+
   // DELETE request
   async delete<T>(endpoint: string, headers?: Record<string, string>): Promise<T> {
     return this.request<T>(endpoint, { method: 'DELETE', headers });
@@ -117,8 +124,21 @@ export const apiClient = new ApiClient(API_BASE_URL);
 // Helper function để tạo URL đầy đủ cho ảnh
 export const getImageUrl = (imageUrl: string | null | undefined): string => {
   if (!imageUrl) return '/placeholder.png';
-  if (imageUrl.startsWith('http')) return imageUrl;
-  return `${API_BASE_URL}${imageUrl}`;
+  
+  // Nếu là URL đầy đủ (http/https)
+  if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+    return imageUrl;
+  }
+  
+  // Nếu là đường dẫn tương đối, thêm API_BASE_URL
+  // Đảm bảo không có dấu / kép
+  const baseUrl = API_BASE_URL.endsWith('/') ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
+  const path = imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`;
+  
+  const fullUrl = `${baseUrl}${path}`;
+  console.log('Image URL:', { original: imageUrl, full: fullUrl });
+  
+  return fullUrl;
 };
 
 // Export API_BASE_URL for other services

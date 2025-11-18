@@ -1,191 +1,106 @@
-// API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3201';
+import { apiClient } from '../lib/api_client';
 
-// Product Types
-export interface Brand {
-  id: string;
+export interface ProductBrand {
+  id: number;
   name: string;
   slug?: string;
 }
 
-export interface Category {
-  id: string;
+export interface ProductCategory {
+  id: number;
   name: string;
   slug?: string;
 }
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   sku: string;
   price: number;
   compare_price?: number;
+  quantity?: number;
+  inventory_quantity?: number;
+  status: 'active' | 'inactive';
   featured_image?: string;
+  gallery_images?: string[];
   short_description?: string;
-  brand?: Brand;
-  category?: Category;
-  total_sold?: number;
+  description?: string;
+  is_featured?: boolean;
+  brand_id?: number;
+  category_id?: number;
+  brand?: ProductBrand | null;
+  category?: ProductCategory | null;
+  created_at?: string;
+  updated_at?: string;
 }
 
-export interface ApiResponse<T> {
-  data: T;
-  message?: string;
-  success: boolean;
+export interface CreateProductDto {
+  name: string;
+  slug: string;
+  sku: string;
+  price: number;
+  compare_price?: number;
+  quantity: number;
+  status?: 'active' | 'inactive';
+  featured_image?: string;
+  gallery_images?: string[];
+  short_description?: string;
+  description?: string;
+  is_featured?: boolean;
+  category_id?: number;
+  brand_id?: number;
 }
 
-// Products API Service
-class ProductsApiService {
-  private baseUrl: string;
+export interface UpdateProductDto extends Partial<CreateProductDto> {}
 
-  constructor() {
-    this.baseUrl = `${API_BASE_URL}/api`;
+export interface ProductsListResponse {
+  data: Product[];
+  total: number;
+  page: number;
+  limit: number;
+  pages: number;
+}
+
+class ProductsService {
+  async getAdminProducts(params: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    status?: 'active' | 'inactive';
+    category_id?: number;
+    brand_id?: number;
+  }): Promise<ProductsListResponse> {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', params.page.toString());
+    if (params.limit) query.append('limit', params.limit.toString());
+    if (params.search) query.append('search', params.search);
+    if (params.status) query.append('status', params.status);
+    if (params.category_id) query.append('category_id', params.category_id.toString());
+    if (params.brand_id) query.append('brand_id', params.brand_id.toString());
+
+    const qs = query.toString();
+    const endpoint = qs ? `/products/admin/list?${qs}` : '/products/admin/list';
+    return await apiClient.get<ProductsListResponse>(endpoint);
   }
 
-  /**
-   * Lấy danh sách sản phẩm bán chạy nhất
-   * @param limit Số lượng sản phẩm muốn lấy (mặc định: 10)
-   */
-  async getBestSellers(limit: number = 10): Promise<Product[]> {
-    try {
-      const response = await fetch(`${this.baseUrl}/products/best-sellers?limit=${limit}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching best sellers:', error);
-      throw error;
-    }
+  async getProductById(productId: number): Promise<Product> {
+    return await apiClient.get<Product>(`/products/admin/${productId}`);
   }
 
-  /**
-   * Lấy danh sách tất cả sản phẩm
-   */
-  async getAllProducts(): Promise<Product[]> {
-    try {
-      const response = await fetch(`${this.baseUrl}/products`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
+  async createProduct(product: CreateProductDto): Promise<any> {
+    return await apiClient.post('/products/admin', product);
   }
 
-  /**
-   * Lấy chi tiết một sản phẩm
-   */
-  async getProductById(id: string): Promise<Product> {
-    try {
-      const response = await fetch(`${this.baseUrl}/products/${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      throw error;
-    }
+  async updateProduct(productId: number, product: UpdateProductDto): Promise<any> {
+    return await apiClient.put(`/products/admin/${productId}`, product);
   }
 
-  /**
-   * Tạo sản phẩm mới
-   */
-  async createProduct(product: Partial<Product>): Promise<Product> {
-    try {
-      const response = await fetch(`${this.baseUrl}/products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(product),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error creating product:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Cập nhật sản phẩm
-   */
-  async updateProduct(id: string, product: Partial<Product>): Promise<Product> {
-    try {
-      const response = await fetch(`${this.baseUrl}/products/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(product),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error updating product:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Xóa sản phẩm
-   */
-  async deleteProduct(id: string): Promise<void> {
-    try {
-      const response = await fetch(`${this.baseUrl}/products/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error('Error deleting product:', error);
-      throw error;
-    }
+  async deleteProduct(productId: number): Promise<any> {
+    return await apiClient.delete(`/products/admin/${productId}`);
   }
 }
 
-// Export singleton instance
-export const productsApi = new ProductsApiService();
+export const productsService = new ProductsService();
+export default productsService;
+

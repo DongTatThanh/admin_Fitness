@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Categories.css';
 import { categoriesService } from '../../services/categories.service';
+import { getImageUrl } from '../../lib/api_client';
+import useImageUpload from '../../hooks/useImageUpload';
 
 export default function CategoryAdd() {
   const navigate = useNavigate();
@@ -15,6 +17,14 @@ export default function CategoryAdd() {
     sort_order: 0,
     status: 'active' as 'active' | 'inactive'
   });
+  const [iconPreview, setIconPreview] = useState<string | null>(null);
+  const { uploadImage, uploading: uploadingIcon, error: uploadError, resetError } = useImageUpload();
+
+  useEffect(() => {
+    if (formData.icon) {
+      setIconPreview(formData.icon);
+    }
+  }, [formData.icon]);
 
   // Tự động tạo slug từ name
   const handleNameChange = (value: string) => {
@@ -118,14 +128,38 @@ export default function CategoryAdd() {
 
           <div className="form-row">
             <div className="form-group">
-              <label>Icon</label>
+              <label>Icon / Ảnh danh mục</label>
               <input 
-                type="text" 
-                value={formData.icon}
-                onChange={(e) => setFormData({...formData, icon: e.target.value})}
-                placeholder="🏋️ hoặc URL icon"
+                type="file" 
+                accept="image/*"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  resetError();
+                  const localPreview = URL.createObjectURL(file);
+                  setIconPreview(localPreview);
+                  try {
+                    const uploadedUrl = await uploadImage(file);
+                    setFormData((prev) => ({ ...prev, icon: uploadedUrl }));
+                    setIconPreview(uploadedUrl);
+                  } catch {
+                    setIconPreview(null);
+                  }
+                }}
+                disabled={uploadingIcon || loading}
               />
-              <small className="form-hint">Emoji hoặc URL hình ảnh</small>
+              {uploadingIcon && <small className="form-hint">Đang tải ảnh...</small>}
+              {uploadError && <small style={{ color: '#e74c3c' }}>{uploadError}</small>}
+              {iconPreview && (
+                <div style={{ marginTop: '10px' }}>
+                  <img 
+                    src={iconPreview.startsWith('blob:') ? iconPreview : getImageUrl(iconPreview)} 
+                    alt="Icon preview"
+                    style={{ maxWidth: '120px', maxHeight: '120px', border: '1px solid #ddd', borderRadius: '4px' }}
+                  />
+                </div>
+              )}
+              <small className="form-hint">Ảnh sẽ được tải lên máy chủ và tự động điền URL.</small>
             </div>
 
             <div className="form-group">
@@ -162,9 +196,9 @@ export default function CategoryAdd() {
             <button 
               type="submit" 
               className="btn-primary"
-              disabled={loading}
+              disabled={loading || uploadingIcon}
             >
-              {loading ? 'Đang xử lý...' : 'Thêm danh mục'}
+              {loading ? 'Đang xử lý...' : uploadingIcon ? 'Đang tải ảnh...' : 'Thêm danh mục'}
             </button>
           </div>
         </form>

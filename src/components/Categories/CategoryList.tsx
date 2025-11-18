@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../../styles/Categories.css';
 import { categoriesService } from '../../services/categories.service';
 import type { Category } from '../../services/categories.service';
 
 export default function CategoryList() {
-  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -104,7 +102,7 @@ export default function CategoryList() {
         name: category.name,
         slug: category.slug,
         description: category.description || '',
-        icon: category.icon_class || '',
+        icon: category.icon || '',
         sort_order: category.sort_order || 0,
         status: category.is_active ? 'active' : 'inactive',
       });
@@ -168,9 +166,6 @@ export default function CategoryList() {
           <h2>📂 Quản lý danh mục</h2>
           <p>Tổng số: {totalCategories} danh mục</p>
         </div>
-        <button className="btn-primary" onClick={() => navigate('/categories/add')}>
-          ➕ Thêm danh mục mới
-        </button>
       </div>
 
       {/* Filters */}
@@ -243,7 +238,7 @@ export default function CategoryList() {
                     categories.map((category) => (
                       <tr key={category.id}>
                         <td>#{category.id}</td>
-                       
+                        <td><strong>{category.name}</strong></td>
                         <td><code>{category.slug}</code></td>
                         <td className="description-cell">{category.description || '-'}</td>
                         <td>{category.products?.length || 0}</td>
@@ -336,7 +331,7 @@ export default function CategoryList() {
                   </div>
                   <div className="info-row">
                     <span className="info-label">Icon:</span>
-                    <span className="info-value">{selectedCategory.icon_class || '-'}</span>
+                    <span className="info-value">{selectedCategory.icon || '-'}</span>
                   </div>
                   <div className="info-row">
                     <span className="info-label">Tên:</span>

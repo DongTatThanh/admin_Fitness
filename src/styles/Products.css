@@ -121,6 +121,32 @@
   border: 1px solid #f0f0f0;
 }
 
+.product-thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  background: #fff;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.no-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
+  border-radius: 8px;
+  font-size: 40px;
+  border: 2px solid var(--border-light);
+}
+
 .price {
   font-weight: 700;
   color: #10b981;
@@ -295,6 +321,78 @@
   color: #666;
   border: 1px solid #e8e8e8;
 }
+
+/* Gallery Images */
+.gallery-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--border-light);
+  background: white;
+  transition: all 0.3s;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.gallery-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(231, 76, 60, 0.9);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s;
+  opacity: 0;
+}
+
+.gallery-item:hover .gallery-remove {
+  opacity: 1;
+}
+
+.gallery-remove:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+.form-hint {
+  display: block;
+  margin-top: 6px;
+  color: #3498db;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 
 .cancel-btn:hover {
   background: #e8e8e8;
