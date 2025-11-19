@@ -87,9 +87,9 @@ export default function CategoryList() {
       setSelectedCategory(category);
       setModalMode('view');
       setShowModal(true);
-    } catch (err) {
-      console.error('Error loading category:', err);
-      alert('Không thể tải thông tin danh mục');
+    } catch (err: any) {
+      const errorMsg = err?.message || 'Không thể tải thông tin danh mục';
+      alert(`Lỗi: ${errorMsg}\nVui lòng kiểm tra lại hoặc liên hệ quản trị viên.`);
     }
   };
 
@@ -108,9 +108,9 @@ export default function CategoryList() {
       });
       setModalMode('edit');
       setShowModal(true);
-    } catch (err) {
-      console.error('Error loading category:', err);
-      alert('Không thể tải thông tin danh mục');
+    } catch (err: any) {
+      const errorMsg = err?.message || 'Không thể tải thông tin danh mục';
+      alert(`Lỗi: ${errorMsg}\nVui lòng kiểm tra lại hoặc liên hệ quản trị viên.`);
     }
   };
 

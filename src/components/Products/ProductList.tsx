@@ -113,7 +113,11 @@ export default function ProductList() {
 
   useEffect(() => {
     loadProducts();
-  }, [currentPage, limit, statusFilter, categoryFilter, brandFilter]);
+  }, [currentPage, limit]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [statusFilter, categoryFilter, brandFilter]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

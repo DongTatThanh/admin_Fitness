@@ -50,12 +50,22 @@ class ApiClient {
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+        const errorMessage = errorData.message || `HTTP error! status: ${response.status}`;
+        
+        // Chỉ log error nếu không phải là 404 variants endpoint (tính năng optional)
+        if (!(response.status === 404 && endpoint.includes('/variants'))) {
+          console.error('API Request failed:', errorMessage);
+        }
+        
+        throw new Error(errorMessage);
       }
 
       return await response.json();
     } catch (error) {
-      console.error('API Request failed:', error);
+      // Không log lỗi cho variants endpoint 404 (tính năng optional)
+      if (!(error instanceof Error && error.message.includes('Cannot GET') && endpoint.includes('/variants'))) {
+        console.error('API Request failed:', error);
+      }
       throw error;
     }
   }
@@ -67,30 +77,25 @@ class ApiClient {
 
   // POST request
   async post<T>(endpoint: string, data?: any, headers?: Record<string, string>): Promise<T> {
-    console.log('POST request data before stringify:', data);
-    const bodyString = data ? JSON.stringify(data) : undefined;
-    console.log('POST request body string:', bodyString);
+    const isFormData = data instanceof FormData;
+    const body = isFormData ? data : (data ? JSON.stringify(data) : undefined);
     
     return this.request<T>(endpoint, {
       method: 'POST',
-      body: bodyString,
-      headers,
+      body,
+      headers: isFormData ? headers : { 'Content-Type': 'application/json', ...headers },
     });
   }
 
   // PUT request
   async put<T>(endpoint: string, data?: any, headers?: Record<string, string>): Promise<T> {
-    console.log('PUT request data before stringify:', data);
-    const bodyString = data ? JSON.stringify(data) : undefined;
-    console.log('PUT request body string:', bodyString);
+    const isFormData = data instanceof FormData;
+    const body = isFormData ? data : (data ? JSON.stringify(data) : undefined);
     
     return this.request<T>(endpoint, {
       method: 'PUT',
-      body: bodyString,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers,
-      },
+      body,
+      headers: isFormData ? headers : { 'Content-Type': 'application/json', ...headers },
     });
   }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { variantService, type ProductVariant, type CreateVariantDto, type UpdateVariantDto } from '../../services/variant.service';
+import { variantService, type ProductVariant } from '../../services/variant.service';
 import { useImageUpload } from '../../hooks/useImageUpload';
 import { getImageUrl } from '../../lib/api_client';
 
@@ -116,16 +116,16 @@ const VariantForm: React.FC<VariantFormProps> = ({ productId, variant, onSuccess
 
       // Gọi API thêm hoặc sửa
       if (variant) {
-        // Chuẩn bị dữ liệu cho update
-        const updateDto: UpdateVariantDto = {
-          variantName: formData.variantName.trim(),
+        // Chuẩn bị dữ liệu cho update - chuyển sang snake_case cho backend
+        const updateDto = {
+          variant_name: formData.variantName.trim(),
           sku: formData.sku.trim() || undefined,
           price: parseFloat(formData.price),
-          comparePrice: formData.comparePrice ? parseFloat(formData.comparePrice) : undefined,
+          compare_price: formData.comparePrice ? parseFloat(formData.comparePrice) : undefined,
           quantity: parseInt(formData.quantity),
           image: imageUrl || undefined,
           status: formData.status,
-          attributeValues: {
+          attribute_values: {
             flavor: formData.flavor.trim() || undefined,
             size: formData.size.trim() || undefined,
             color: formData.color.trim() || undefined,
@@ -133,19 +133,19 @@ const VariantForm: React.FC<VariantFormProps> = ({ productId, variant, onSuccess
             weight_unit: formData.weight_unit || undefined,
           },
         };
-        await variantService.updateVariant(variant.id, updateDto);
+        await variantService.updateVariant(variant.id, updateDto as any);
         alert('Cập nhật variant thành công!');
       } else {
-        // Chuẩn bị dữ liệu cho create
-        const createDto: CreateVariantDto = {
-          variantName: formData.variantName.trim(),
+        // Chuẩn bị dữ liệu cho create - chuyển sang snake_case cho backend
+        const createDto = {
+          variant_name: formData.variantName.trim(),
           sku: formData.sku.trim() || undefined,
           price: parseFloat(formData.price),
-          comparePrice: formData.comparePrice ? parseFloat(formData.comparePrice) : undefined,
+          compare_price: formData.comparePrice ? parseFloat(formData.comparePrice) : undefined,
           quantity: parseInt(formData.quantity),
           image: imageUrl || undefined,
           status: formData.status,
-          attributeValues: {
+          attribute_values: {
             flavor: formData.flavor.trim() || undefined,
             size: formData.size.trim() || undefined,
             color: formData.color.trim() || undefined,
@@ -153,7 +153,7 @@ const VariantForm: React.FC<VariantFormProps> = ({ productId, variant, onSuccess
             weight_unit: formData.weight_unit || undefined,
           },
         };
-        await variantService.addProductVariant(productId, createDto);
+        await variantService.addProductVariant(productId, createDto as any);
         alert('Thêm variant thành công!');
       }
 

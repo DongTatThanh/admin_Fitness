@@ -99,6 +99,14 @@ class ProductsService {
   async deleteProduct(productId: number): Promise<any> {
     return await apiClient.delete(`/products/admin/${productId}`);
   }
+
+  async getAllProducts(page: number = 1, limit: number = 1000): Promise<ProductsListResponse> {
+    return await this.getAdminProducts({ page, limit });
+  }
+
+  async getProductVariants(productId: number): Promise<any> {
+    return await apiClient.get(`/products/admin/${productId}/variants`);
+  }
 }
 
 export const productsService = new ProductsService();

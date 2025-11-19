@@ -96,6 +96,23 @@ export default function Sidebar() {
       ]
     },
     { 
+      id: 'flashsales', 
+      label: 'Quản lý Flash Sale', 
+      icon: '',
+      subItems: [
+        { id: 'flashsales-list', label: 'Danh sách Flash Sale', icon: '', path: '/flash-sales' },
+      ]
+    },
+    { 
+      id: 'banners', 
+      label: 'Quản lý Banner', 
+      icon: '',
+      subItems: [
+        { id: 'banners-list', label: 'Danh sách Banner', icon: '', path: '/banners' },
+        { id: 'banners-add', label: 'Thêm Banner', icon: '', path: '/banners/add' },
+      ]
+    },
+    { 
       id: 'inventory', 
       label: 'Quản lý nhập hàng', 
       icon: '',

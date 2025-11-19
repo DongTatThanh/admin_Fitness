@@ -3,6 +3,8 @@ export * from './products.service';
 export * from './orders.service';
 export * from './dashboard.service';
 export * from './upload.service';
+export * from './flashsale.service';
+export * from './banner.service';
     
 
 

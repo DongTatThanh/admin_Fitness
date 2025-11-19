@@ -26,6 +26,21 @@ import OrderList from './components/Orders/OrderList'
 import VoucherList from './components/Vouchers/VoucherList'
 import VoucherForm from './components/Vouchers/VoucherForm'
 
+// Flash Sales
+import FlashSaleList from './components/FlashSales/FlashSaleList'
+import FlashSaleProducts from './components/FlashSales/FlashSaleProducts'
+import { useParams } from 'react-router-dom'
+
+// Flash Sale Products Wrapper
+function FlashSaleProductsPage() {
+  const { id } = useParams<{ id: string }>();
+  return <FlashSaleProducts flashSaleId={parseInt(id || '0')} />;
+}
+
+// Banners
+import BannerList from './components/Banners/BannerList'
+import BannerForm from './components/Banners/BannerForm'
+
 // Statistics
 import Statistics from './components/Statistics/Statistics'
 import RevenueByDay from './components/RevenueByDay'
@@ -76,6 +91,15 @@ function App() {
               <Route path="/vouchers/list" element={<VoucherList />} />
               <Route path="/vouchers/add" element={<VoucherForm />} />
               <Route path="/vouchers/edit/:id" element={<VoucherForm />} />
+
+              {/* Flash Sales */}
+              <Route path="/flash-sales" element={<FlashSaleList />} />
+              <Route path="/flash-sales/:id/products" element={<FlashSaleProductsPage />} />
+
+              {/* Banners */}
+              <Route path="/banners" element={<BannerList />} />
+              <Route path="/banners/add" element={<BannerForm />} />
+              <Route path="/banners/edit/:id" element={<BannerForm />} />
 
               {/* Inventory */}
               <Route path="/inventory/import" element={<div style={{ padding: '20px' }}><h2>Nhập hàng</h2><p>Đang phát triển...</p></div>} />
