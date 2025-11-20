@@ -18,7 +18,7 @@ export interface UpdateCategoryDto {
   parent_id?: number;
   icon?: string;
   sort_order?: number;
-  status?: 'active' | 'inactive';
+  is_active?: boolean;
 }
 
 export interface Category {

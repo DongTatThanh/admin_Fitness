@@ -31,6 +31,10 @@ import FlashSaleList from './components/FlashSales/FlashSaleList'
 import FlashSaleProducts from './components/FlashSales/FlashSaleProducts'
 import { useParams } from 'react-router-dom'
 
+// Posts
+import PostList from './components/Posts/PostList'
+import PostAdd from './components/Posts/PostAdd'
+
 // Flash Sale Products Wrapper
 function FlashSaleProductsPage() {
   const { id } = useParams<{ id: string }>();
@@ -80,8 +84,8 @@ function App() {
               <Route path="/topics/add" element={<div style={{ padding: '20px' }}><h2>Thêm chủ đề</h2><p>Đang phát triển...</p></div>} />
 
               {/* Posts */}
-              <Route path="/posts/list" element={<div style={{ padding: '20px' }}><h2>Danh sách bài đăng</h2><p>Đang phát triển...</p></div>} />
-              <Route path="/posts/add" element={<div style={{ padding: '20px' }}><h2>Thêm bài đăng</h2><p>Đang phát triển...</p></div>} />
+              <Route path="/posts/list" element={<PostList />} />
+              <Route path="/posts/add" element={<PostAdd />} />
 
               {/* Shipping */}
               <Route path="/shipping/methods" element={<div style={{ padding: '20px' }}><h2>Phương thức vận chuyển</h2><p>Đang phát triển...</p></div>} />

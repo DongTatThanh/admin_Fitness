@@ -5,6 +5,7 @@ export * from './dashboard.service';
 export * from './upload.service';
 export * from './flashsale.service';
 export * from './banner.service';
+export * from './posts.service';
     
 
 
