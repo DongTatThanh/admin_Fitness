@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import ProtectedRoute from './components/Auth/ProtectedRoute'
+import Login from './components/Auth/Login'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard'
@@ -49,18 +52,33 @@ import BannerForm from './components/Banners/BannerForm'
 import Statistics from './components/Statistics/Statistics'
 import RevenueByDay from './components/RevenueByDay'
 
-function App() {
+// Login Route - redirect to dashboard if already authenticated
+function LoginRoute() {
+  const { isAuthenticated, isLoading } = useAuth();
+  
+  if (isLoading) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Đang tải...</div>;
+  }
+  
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  
+  return <Login />;
+}
+
+// Main App Layout (only shown when authenticated)
+function AppLayout() {
   return (
-    <BrowserRouter>
-      <div className="app">
-        <Sidebar />
-        <div className="main-content">
-          <Header />
-          <div className="content">
-            <Routes>
-              {/* Dashboard */}
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+    <div className="app">
+      <Sidebar />
+      <div className="main-content">
+        <Header />
+        <div className="content">
+          <Routes>
+            {/* Dashboard */}
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
               {/* Users */}
               <Route path="/users/list" element={<UserManagement />} />
@@ -124,13 +142,32 @@ function App() {
               <Route path="/statistics/products" element={<div style={{ padding: '20px' }}><h2>Thống kê sản phẩm</h2><p>Đang phát triển...</p></div>} />
               <Route path="/statistics/customers" element={<div style={{ padding: '20px' }}><h2>Thống kê khách hàng</h2><p>Đang phát triển...</p></div>} />
 
-              {/* 404 */}
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
-          </div>
+            {/* 404 */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public route - Login */}
+          <Route path="/login" element={<LoginRoute />} />
+          
+          {/* Protected routes */}
+          <Route path="/*" element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

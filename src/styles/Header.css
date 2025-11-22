@@ -207,3 +207,24 @@
   position: relative;
   z-index: 1;
 }
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1;
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}

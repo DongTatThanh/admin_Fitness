@@ -21,11 +21,20 @@ class ApiClient {
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     
+    // Lấy admin token từ localStorage nếu có
+    const adminToken = localStorage.getItem('admin_token');
+    const defaultHeaders: Record<string, string> = {};
+    
+    if (adminToken && !options.headers?.['Authorization']) {
+      defaultHeaders['Authorization'] = `Bearer ${adminToken}`;
+    }
+    
     const isFormData = options.body instanceof FormData;
     const config: RequestInit = {
       ...options,
       headers: {
         ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+        ...defaultHeaders,
         ...options.headers,
       },
     };
