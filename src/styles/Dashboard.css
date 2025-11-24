@@ -123,6 +123,16 @@
   opacity: 1;
 }
 
+.stat-card.clickable {
+  cursor: pointer;
+}
+
+.stat-card.clickable:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  border-color: var(--primary);
+}
+
 .stat-icon {
   width: 72px;
   height: 72px;
@@ -294,6 +304,16 @@ tbody tr:hover td {
   background: var(--bg-tertiary);
 }
 
+tbody tr.clickable-row {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+tbody tr.clickable-row:hover {
+  background: var(--bg-tertiary);
+  transform: translateX(4px);
+}
+
 td strong {
   color: #667eea;
   font-weight: 600;
@@ -379,6 +399,10 @@ td strong {
 
 .product-item:hover::before {
   width: 4px;
+}
+
+.product-item.clickable {
+  cursor: pointer;
 }
 
 .product-rank {

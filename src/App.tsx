@@ -52,6 +52,26 @@ import BannerForm from './components/Banners/BannerForm'
 import Statistics from './components/Statistics/Statistics'
 import RevenueByDay from './components/RevenueByDay'
 
+// Suppliers
+import SupplierList from './components/Suppliers/SupplierList'
+
+// Purchase Orders
+import PurchaseOrderList from './components/PurchaseOrders/PurchaseOrderList'
+import PurchaseOrderForm from './components/PurchaseOrders/PurchaseOrderForm'
+import PurchaseOrderDetail from './components/PurchaseOrders/PurchaseOrderDetail'
+
+// Inventory
+import InventoryTransactionList from './components/Inventory/InventoryTransactionList'
+import InventoryReport from './components/Inventory/InventoryReport'
+import InventoryAdjust from './components/Inventory/InventoryAdjust'
+
+// Shipping
+import CarrierList from './components/Shipping/CarrierList'
+import ZoneList from './components/Shipping/ZoneList'
+import RateList from './components/Shipping/RateList'
+import ShipmentList from './components/Shipping/ShipmentList'
+import ShipmentDetail from './components/Shipping/ShipmentDetail'
+
 // Login Route - redirect to dashboard if already authenticated
 function LoginRoute() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -106,8 +126,12 @@ function AppLayout() {
               <Route path="/posts/add" element={<PostAdd />} />
 
               {/* Shipping */}
-              <Route path="/shipping/methods" element={<div style={{ padding: '20px' }}><h2>Phương thức vận chuyển</h2><p>Đang phát triển...</p></div>} />
-              <Route path="/shipping/zones" element={<div style={{ padding: '20px' }}><h2>Khu vực vận chuyển</h2><p>Đang phát triển...</p></div>} />
+              <Route path="/shipping/carriers" element={<CarrierList />} />
+              <Route path="/shipping/methods" element={<CarrierList />} />
+              <Route path="/shipping/zones" element={<ZoneList />} />
+              <Route path="/shipping/rates" element={<RateList />} />
+              <Route path="/shipping/shipments" element={<ShipmentList />} />
+              <Route path="/shipping/shipments/:id" element={<ShipmentDetail />} />
 
               {/* Vouchers */}
               <Route path="/vouchers/list" element={<VoucherList />} />
@@ -123,9 +147,21 @@ function AppLayout() {
               <Route path="/banners/add" element={<BannerForm />} />
               <Route path="/banners/edit/:id" element={<BannerForm />} />
 
+              {/* Suppliers */}
+              <Route path="/suppliers" element={<SupplierList />} />
+
+              {/* Purchase Orders */}
+              <Route path="/purchase-orders" element={<PurchaseOrderList />} />
+              <Route path="/purchase-orders/new" element={<PurchaseOrderForm />} />
+              <Route path="/purchase-orders/:id" element={<PurchaseOrderDetail />} />
+              <Route path="/purchase-orders/:id/edit" element={<PurchaseOrderForm />} />
+
               {/* Inventory */}
-              <Route path="/inventory/import" element={<div style={{ padding: '20px' }}><h2>Nhập hàng</h2><p>Đang phát triển...</p></div>} />
-              <Route path="/inventory/history" element={<div style={{ padding: '20px' }}><h2>Lịch sử nhập hàng</h2><p>Đang phát triển...</p></div>} />
+              <Route path="/inventory/transactions" element={<InventoryTransactionList />} />
+              <Route path="/inventory/report" element={<InventoryReport />} />
+              <Route path="/inventory/adjust" element={<InventoryAdjust />} />
+              <Route path="/inventory/import" element={<PurchaseOrderList />} />
+              <Route path="/inventory/history" element={<InventoryTransactionList />} />
 
               {/* Orders */}
               <Route path="/orders/list" element={<OrderList />} />

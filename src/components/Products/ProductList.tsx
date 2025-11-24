@@ -20,6 +20,7 @@ export default function ProductList() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [limit, setLimit] = useState(20);
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'active' | 'inactive' | ''>('');
   const [categoryFilter, setCategoryFilter] = useState<number | ''>('');
   const [brandFilter, setBrandFilter] = useState<number | ''>('');
@@ -78,7 +79,7 @@ export default function ProductList() {
       const response = await productsService.getAdminProducts({
         page: currentPage,
         limit,
-        search: search.trim() || undefined,
+        search: debouncedSearch.trim() || undefined,
         status: statusFilter || undefined,
         category_id: categoryFilter || undefined,
         brand_id: brandFilter || undefined,
@@ -111,24 +112,25 @@ export default function ProductList() {
     loadFiltersData();
   }, []);
 
+  // Debounce search
   useEffect(() => {
-    loadProducts();
-  }, [currentPage, limit]);
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+      setCurrentPage(1);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [search]);
 
+  // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [statusFilter, categoryFilter, brandFilter]);
 
+  // Load products when any filter, page, limit, or debounced search changes
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentPage === 1) {
-        loadProducts();
-      } else {
-        setCurrentPage(1);
-      }
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [search]);
+    loadProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, limit, statusFilter, categoryFilter, brandFilter, debouncedSearch]);
 
   const handleViewProduct = async (productId: number) => {
     try {

@@ -82,8 +82,11 @@ export default function Sidebar() {
       label: 'Quản lý vận chuyển', 
       icon: '',
       subItems: [
+        { id: 'shipping-carriers', label: 'Đơn vị vận chuyển', icon: '', path: '/shipping/carriers' },
         { id: 'shipping-methods', label: 'Phương thức ship', icon: '', path: '/shipping/methods' },
         { id: 'shipping-zones', label: 'Khu vực ship', icon: '', path: '/shipping/zones' },
+        { id: 'shipping-rates', label: 'Bảng giá', icon: '', path: '/shipping/rates' },
+        { id: 'shipping-shipments', label: 'Đơn vận chuyển', icon: '', path: '/shipping/shipments' },
       ]
     },
     { 
@@ -113,10 +116,25 @@ export default function Sidebar() {
       ]
     },
     { 
+      id: 'suppliers', 
+      label: 'Quản lý Nhà cung cấp', 
+      icon: '',
+      path: '/suppliers'
+    },
+    { 
+      id: 'purchase-orders', 
+      label: 'Quản lý Đơn nhập hàng', 
+      icon: '',
+      path: '/purchase-orders'
+    },
+    { 
       id: 'inventory', 
-      label: 'Quản lý nhập hàng', 
+      label: 'Quản lý Kho', 
       icon: '',
       subItems: [
+        { id: 'inventory-transactions', label: 'Lịch sử giao dịch', icon: '', path: '/inventory/transactions' },
+        { id: 'inventory-report', label: 'Báo cáo tồn kho', icon: '', path: '/inventory/report' },
+        { id: 'inventory-adjust', label: 'Điều chỉnh tồn kho', icon: '', path: '/inventory/adjust' },
         { id: 'inventory-import', label: 'Nhập hàng', icon: '', path: '/inventory/import' },
         { id: 'inventory-history', label: 'Lịch sử nhập', icon: '', path: '/inventory/history' },
       ]

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { dashboardApi, ordersService } from '../services';
 import type { DashboardStats, TopProduct } from '../services/dashboard.service';
 import type { Order } from '../services/orders.service';
@@ -13,6 +14,7 @@ interface StatCard {
 }
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [topProducts, setTopProducts] = useState<TopProduct[]>([]);
   const [recentOrders, setRecentOrders] = useState<Order[]>([]);
@@ -105,13 +107,14 @@ export default function Dashboard() {
     );
   }
 
-  const statsCards: StatCard[] = [
+  const statsCards: (StatCard & { link?: string })[] = [
     {
       label: 'Tổng doanh thu',
       value: formatCurrency(stats?.total_revenue || 0),
       icon: '',
       color: '#10b981',
       growth: stats?.revenue_growth,
+      link: '/statistics/revenue',
     },
     {
       label: 'Đơn hàng',
@@ -119,6 +122,7 @@ export default function Dashboard() {
       icon: '',
       color: '#3b82f6',
       growth: stats?.orders_growth,
+      link: '/orders/list',
     },
     {
       label: 'Khách hàng',
@@ -126,12 +130,14 @@ export default function Dashboard() {
       icon: '',
       color: '#f59e0b',
       growth: stats?.customers_growth,
+      link: '/users/list',
     },
     {
       label: 'Sản phẩm',
       value: stats?.total_products?.toString() || '0',
       icon: '',
       color: '#8b5cf6',
+      link: '/products/list',
     },
   ];
 
@@ -153,7 +159,12 @@ export default function Dashboard() {
 
       <div className="stats-grid">
         {statsCards.map((stat, index) => (
-          <div key={index} className="stat-card" style={{ '--card-color': stat.color } as React.CSSProperties}>
+          <div
+            key={index}
+            className="stat-card clickable"
+            style={{ '--card-color': stat.color } as React.CSSProperties}
+            onClick={() => stat.link && navigate(stat.link)}
+          >
             <div className="stat-icon" style={{ backgroundColor: stat.color + '20' }}>
               {stat.icon}
             </div>
@@ -174,7 +185,12 @@ export default function Dashboard() {
         <div className="dashboard-card recent-orders">
           <div className="card-header">
             <h3>Đơn hàng gần đây</h3>
-            <button className="view-all-btn">Xem tất cả →</button>
+            <button
+              className="view-all-btn"
+              onClick={() => navigate('/orders/list')}
+            >
+              Xem tất cả →
+            </button>
           </div>
           <div className="table-container">
             {recentOrders.length > 0 ? (
@@ -190,7 +206,11 @@ export default function Dashboard() {
                 </thead>
                 <tbody>
                   {recentOrders.map((order) => (
-                    <tr key={order.id}>
+                    <tr
+                      key={order.id}
+                      className="clickable-row"
+                      onClick={() => navigate('/orders/list')}
+                    >
                       <td><strong>#{String(order.id).slice(0, 8)}</strong></td>
                       <td>{order.customer_name}</td>
                       <td>{order.items?.length || 0} sản phẩm</td>
@@ -219,7 +239,11 @@ export default function Dashboard() {
           <div className="products-list">
             {topProducts.length > 0 ? (
               topProducts.map((product, index) => (
-                <div key={product.product_id} className="product-item">
+                <div
+                  key={product.product_id}
+                  className="product-item clickable"
+                  onClick={() => navigate('/products/list')}
+                >
                   <div className="product-rank">{index + 1}</div>
                   <div className="product-info">
                     <h4>{product.product_name}</h4>

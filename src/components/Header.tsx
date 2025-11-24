@@ -53,7 +53,8 @@ export default function Header() {
                 onClick={handleLogout}
                 title="Đăng xuất"
               >
-                🚪
+                <span className="logout-icon">🚪</span>
+                <span className="logout-text">Đăng xuất</span>
               </button>
             </div>
           </div>

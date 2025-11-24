@@ -6,6 +6,13 @@ export * from './upload.service';
 export * from './flashsale.service';
 export * from './banner.service';
 export * from './posts.service';
+export * from './suppliers.service';
+export * from './purchase-orders.service';
+export * from './inventory.service';
+export * from './shipping-carriers.service';
+export * from './shipping-zones.service';
+export * from './shipping-rates.service';
+export * from './shipments.service';
     
 
 

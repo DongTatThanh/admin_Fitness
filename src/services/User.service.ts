@@ -56,7 +56,7 @@ class UserService {
     if (params.sort) queryParams.append('sort', params.sort);
 
     return await apiClient.get<UsersListResponse>(
-      `/users/admin/list/all?${queryParams.toString()}`
+      `/users/admin/list/?${queryParams.toString()}`
     );
   }
 
