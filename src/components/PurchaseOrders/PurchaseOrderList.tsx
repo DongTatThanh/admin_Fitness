@@ -27,8 +27,8 @@ export default function PurchaseOrderList() {
   useEffect(() => {
     const loadSuppliers = async () => {
       try {
-        const response = await suppliersService.getActiveSuppliers();
-        setSuppliers(response);
+        const suppliersList = await suppliersService.getActiveSuppliers();
+        setSuppliers(suppliersList);
       } catch (err) {
         console.error('Error loading suppliers:', err);
       }
@@ -284,4 +284,7 @@ export default function PurchaseOrderList() {
     </div>
   );
 }
+
+
+
 

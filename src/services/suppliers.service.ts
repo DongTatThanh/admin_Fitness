@@ -36,7 +36,7 @@ export interface UpdateSupplierDto {
   is_active?: boolean;
 }
 
-export interface SupplierListResponse {
+export interface SuppliersListResponse {
   data: Supplier[];
   total: number;
   page: number;
@@ -46,50 +46,67 @@ export interface SupplierListResponse {
 
 // ============== SERVICE ==============
 class SuppliersService {
-  private baseUrl = '/suppliers';
-
-  // Lấy danh sách nhà cung cấp
-  async getSuppliers(params?: {
+  // Lấy danh sách nhà cung cấp với phân trang
+  async getSuppliers(params: {
     page?: number;
     limit?: number;
+    search?: string;
     isActive?: boolean;
-  }): Promise<SupplierListResponse> {
+  }): Promise<SuppliersListResponse> {
     const queryParams = new URLSearchParams();
-    if (params?.page) queryParams.append('page', params.page.toString());
-    if (params?.limit) queryParams.append('limit', params.limit.toString());
-    if (params?.isActive !== undefined) queryParams.append('isActive', params.isActive.toString());
+    if (params.page) queryParams.append('page', params.page.toString());
+    if (params.limit) queryParams.append('limit', params.limit.toString());
+    if (params.search) queryParams.append('search', params.search);
+    if (params.isActive !== undefined) queryParams.append('is_active', params.isActive.toString());
 
-    const queryString = queryParams.toString();
-    return await apiClient.get<SupplierListResponse>(
-      `${this.baseUrl}${queryString ? `?${queryString}` : ''}`
-    );
+    const qs = queryParams.toString();
+    const endpoint = qs ? `/suppliers?${qs}` : '/suppliers';
+    const response = await apiClient.get<any>(endpoint);
+    
+    // Handle response format: { success: true, data: {...} } or direct response
+    if (response.data) {
+      return response.data;
+    }
+    return response;
   }
 
-  // Lấy nhà cung cấp đang hoạt động (cho dropdown)
-  async getActiveSuppliers(): Promise<Supplier[]> {
-    return await apiClient.get<Supplier[]>(`${this.baseUrl}/active`);
-  }
-
-  // Lấy chi tiết nhà cung cấp
-  async getSupplierById(id: number): Promise<Supplier> {
-    return await apiClient.get<Supplier>(`${this.baseUrl}/${id}`);
+  // Lấy thông tin chi tiết một nhà cung cấp
+  async getSupplierById(supplierId: number): Promise<Supplier> {
+    const response = await apiClient.get<any>(`/suppliers/${supplierId}`);
+    // Handle response format: { success: true, data: {...} } or direct response
+    return response.data || response;
   }
 
   // Tạo nhà cung cấp mới
-  async createSupplier(dto: CreateSupplierDto): Promise<Supplier> {
-    return await apiClient.post<Supplier>(this.baseUrl, dto);
+  async createSupplier(data: CreateSupplierDto): Promise<Supplier> {
+    const response = await apiClient.post<any>('/suppliers', data);
+    // Handle response format: { success: true, data: {...} } or direct response
+    return response.data || response;
   }
 
-  // Cập nhật nhà cung cấp
-  async updateSupplier(id: number, dto: UpdateSupplierDto): Promise<Supplier> {
-    return await apiClient.put<Supplier>(`${this.baseUrl}/${id}`, dto);
+  // Cập nhật thông tin nhà cung cấp
+  async updateSupplier(supplierId: number, data: UpdateSupplierDto): Promise<Supplier> {
+    const response = await apiClient.put<any>(`/suppliers/${supplierId}`, data);
+    // Handle response format: { success: true, data: {...} } or direct response
+    return response.data || response;
   }
 
-  // Xóa nhà cung cấp (soft delete)
-  async deleteSupplier(id: number): Promise<void> {
-    return await apiClient.delete<void>(`${this.baseUrl}/${id}`);
+  // Xóa nhà cung cấp
+  async deleteSupplier(supplierId: number): Promise<void> {
+    await apiClient.delete(`/suppliers/${supplierId}`);
+  }
+
+  // Lấy danh sách nhà cung cấp đang hoạt động (cho dropdown/filter)
+  async getActiveSuppliers(): Promise<Supplier[]> {
+    const response = await this.getSuppliers({
+      isActive: true,
+      limit: 1000, // Lấy tất cả nhà cung cấp đang hoạt động
+    });
+    return response.data || [];
   }
 }
 
+// Export singleton instance
 export const suppliersService = new SuppliersService();
+export default suppliersService;
 

@@ -100,7 +100,9 @@ class BrandService {
 
   // Lấy chi tiết brand với stats (Admin)
   async getBrandDetails(brandId: number): Promise<Brand> {
-    return await apiClient.get<Brand>(`/brands/admin/${brandId}`);
+    const response = await apiClient.get<any>(`/brands/admin/${brandId}`);
+    // Handle response format: { success: true, data: {...} } or direct response
+    return response.data || response;
   }
 
   // Cập nhật trạng thái brand (Admin)

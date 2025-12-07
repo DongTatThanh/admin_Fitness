@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/PurchaseOrders.css';
 import { purchaseOrdersService } from '../../services';
-import type { PurchaseOrder, PurchaseOrderItem } from '../../services/purchase-orders.service';
+import type { PurchaseOrder } from '../../services/purchase-orders.service';
 
 export default function PurchaseOrderDetail() {
   const navigate = useNavigate();
@@ -339,4 +339,6 @@ export default function PurchaseOrderDetail() {
     </div>
   );
 }
+
+
 

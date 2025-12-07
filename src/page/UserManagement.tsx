@@ -103,6 +103,7 @@ export default function UserManagement() {
   const handleViewUser = async (userId: number) => {
     try {
       const user = await userService.getUserById(userId);
+      console.log('Loaded user for view:', user);
       setSelectedUser(user);
       setModalMode('view');
       setShowModal(true);
@@ -116,6 +117,7 @@ export default function UserManagement() {
   const handleEditUser = async (userId: number) => {
     try {
       const user = await userService.getUserById(userId);
+      console.log('Loaded user for edit:', user);
       setSelectedUser(user);
       setEditForm({
         username: user.username,
@@ -135,7 +137,23 @@ export default function UserManagement() {
   
   // lưu cập nhật user
   const handleSaveEdit = async () => {
-    if (!selectedUser) return;
+    if (!selectedUser) {
+      alert('Không có người dùng được chọn');
+      return;
+    }
+    
+    // Validate và parse ID
+    const userId = Number(selectedUser.user_id || (selectedUser as any).id);
+    
+    if (!userId || userId <= 0 || isNaN(userId)) {
+      console.error('Invalid user ID:', {
+        user_id: selectedUser.user_id,
+        id: (selectedUser as any).id,
+        selectedUser
+      });
+      alert('ID người dùng không hợp lệ');
+      return;
+    }
     
     try {
       const updateData = {
@@ -147,9 +165,10 @@ export default function UserManagement() {
         role_id: editForm.role_id,
       };
       
-      console.log('Dữ liệu cập nhật:', updateData);
+      console.log('Updating user ID:', userId, 'Data:', updateData);
+      console.log('Selected user:', selectedUser);
       
-      const response = await userService.updateUser(selectedUser.user_id, updateData);
+      const response = await userService.updateUser(userId, updateData);
       alert(response.message || 'Cập nhật thành công!');
       setShowModal(false);
       loadUsers();

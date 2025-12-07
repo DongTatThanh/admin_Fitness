@@ -62,7 +62,9 @@ class UserService {
 
   // Lấy thông tin chi tiết một người dùng
   async getUserById(userId: number): Promise<User> {
-    return await apiClient.get<User>(`/users/admin/${userId}`);
+    const response = await apiClient.get<any>(`/users/admin/${userId}`);
+    // Backend trả về { success: true, data: {...} }
+    return response.data || response;
   }
 
   // Tạo người dùng mới

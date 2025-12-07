@@ -16,12 +16,6 @@ export default function Header() {
   };
 
   const adminName = admin?.full_name || admin?.email || 'Admin';
-  const adminInitials = adminName
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2) || 'AD';
 
   return (
     <header className="header">

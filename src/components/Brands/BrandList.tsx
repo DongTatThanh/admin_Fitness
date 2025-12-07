@@ -93,6 +93,7 @@ export default function BrandList() {
   const handleViewBrand = async (brandId: number) => {
     try {
       const brand = await brandService.getBrandDetails(brandId);
+      console.log('Loaded brand for view:', brand);
       setSelectedBrand(brand);
       setModalMode('view');
       setShowModal(true);
@@ -106,6 +107,7 @@ export default function BrandList() {
   const handleEditBrand = async (brandId: number) => {
     try {
       const brand = await brandService.getBrandDetails(brandId);
+      console.log('Loaded brand for edit:', brand);
       setSelectedBrand(brand);
       setEditForm({
         name: brand.name,
@@ -127,7 +129,23 @@ export default function BrandList() {
 
   // Lưu cập nhật
   const handleSaveEdit = async () => {
-    if (!selectedBrand) return;
+    if (!selectedBrand) {
+      alert('Không có nhãn hàng được chọn');
+      return;
+    }
+
+    // Validate và parse ID
+    const brandId = Number(selectedBrand.id || (selectedBrand as any).brand_id);
+    
+    if (!brandId || brandId <= 0 || isNaN(brandId)) {
+      console.error('Invalid brand ID:', {
+        id: selectedBrand.id,
+        brand_id: (selectedBrand as any).brand_id,
+        selectedBrand
+      });
+      alert('ID nhãn hàng không hợp lệ');
+      return;
+    }
 
     try {
       const updateData: any = {
@@ -140,7 +158,10 @@ export default function BrandList() {
         is_featured: editForm.is_featured,
       };
 
-      const response = await brandService.updateBrand(selectedBrand.id, updateData);
+      console.log('Updating brand ID:', brandId, 'Data:', updateData);
+      console.log('Selected brand:', selectedBrand);
+
+      const response = await brandService.updateBrand(brandId, updateData);
       alert(response.message || 'Cập nhật thành công!');
       setShowModal(false);
       loadBrands();
@@ -175,10 +196,27 @@ export default function BrandList() {
   };
 
   const confirmDelete = async () => {
-    if (!selectedBrand) return;
+    if (!selectedBrand) {
+      alert('Không có nhãn hàng được chọn');
+      return;
+    }
+
+    // Validate và parse ID
+    const brandId = Number(selectedBrand.id || (selectedBrand as any).brand_id);
+    
+    if (!brandId || brandId <= 0 || isNaN(brandId)) {
+      console.error('Invalid brand ID:', {
+        id: selectedBrand.id,
+        brand_id: (selectedBrand as any).brand_id,
+        selectedBrand
+      });
+      alert('ID nhãn hàng không hợp lệ');
+      return;
+    }
 
     try {
-      const response = await brandService.deleteBrand(selectedBrand.id);
+      console.log('Deleting brand ID:', brandId);
+      const response = await brandService.deleteBrand(brandId);
       alert(response.message || 'Xóa nhãn hàng thành công!');
       setShowModal(false);
       loadBrands();

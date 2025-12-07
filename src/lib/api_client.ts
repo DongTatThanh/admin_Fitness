@@ -25,7 +25,9 @@ class ApiClient {
     const adminToken = localStorage.getItem('admin_token');
     const defaultHeaders: Record<string, string> = {};
     
-    if (adminToken && !options.headers?.['Authorization']) {
+    // Kiểm tra xem headers đã có Authorization chưa
+    const existingHeaders = options.headers as Record<string, string> | undefined;
+    if (adminToken && !existingHeaders?.['Authorization']) {
       defaultHeaders['Authorization'] = `Bearer ${adminToken}`;
     }
     

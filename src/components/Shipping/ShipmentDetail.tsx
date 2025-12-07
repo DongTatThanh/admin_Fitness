@@ -191,7 +191,7 @@ export default function ShipmentDetail() {
           <div className="detail-section">
             <h3>Lịch sử vận chuyển</h3>
             <div className="tracking-timeline">
-              {shipment.tracking_history.map((history, index) => (
+              {shipment.tracking_history.map((history) => (
                 <div key={history.id} className="timeline-item">
                   <div className="timeline-marker"></div>
                   <div className="timeline-content">
@@ -303,4 +303,7 @@ export default function ShipmentDetail() {
     </div>
   );
 }
+
+
+
 

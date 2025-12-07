@@ -9,7 +9,6 @@ import {
 import type {
   CreatePurchaseOrderDto,
   UpdatePurchaseOrderDto,
-  AddItemToPurchaseOrderDto,
 } from '../../services/purchase-orders.service';
 import type { Supplier } from '../../services/suppliers.service';
 import type { Product } from '../../services/products.service';

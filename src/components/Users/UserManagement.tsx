@@ -13,6 +13,7 @@ interface User {
   created_at: string;
   updated_at?: string;
   is_active?: number;
+  themnguoidung?:string;
 }
 
 
@@ -458,6 +459,12 @@ export default function UserManagement() {
                   </div>
                   <div className="info-row">
                     <span className="info-label">Vai trò:</span>
+                    <span className={`role-badge role-${selectedUser.role_id || 3}`}>
+                      {getRoleName(selectedUser.role_id)}
+                    </span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">người dùng </span>
                     <span className={`role-badge role-${selectedUser.role_id || 3}`}>
                       {getRoleName(selectedUser.role_id)}
                     </span>
